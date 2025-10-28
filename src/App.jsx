@@ -1,34 +1,23 @@
 import React from 'react';
 import Header from './components/Header';
-import Hero from './components/Hero';
-import Services from './components/Services';
-import WhyChooseUs from './components/WhyChooseUs'; 
-import HowItWorks from './components/HowItWorks';
-import Gallery from './components/Gallery';
-import Testimonials from './components/Testimonials';
-import FAQ from './components/FAQ';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+import Hero from './components/Hero';     // This is our Home section now
+import Services from './components/Services'; // This is our Washing Price section
+
+// Import other components if/when you add them back
 
 function App() {
   return (
-    <div className="bg-gray-900 text-white font-sans">
+    // Set base font and colors for the whole app
+    <div className="bg-gray-900 text-white font-sans antialiased">
       <Header />
       <main>
-        <Hero />
-        <Services />
-        <WhyChooseUs />
-        <HowItWorks />
-        <Gallery />
-        <Testimonials />
-        <FAQ />
-        <Contact />
+        <Hero />      {/* Home Section */}
+        <Services />  {/* Washing Price Section */}
+        {/* Add other sections back here later */}
       </main>
-      <Footer />
+      {/* Footer can be added back later */}
     </div>
   );
 }
 
 export default App;
-
-

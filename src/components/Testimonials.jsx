@@ -15,7 +15,7 @@ function Testimonials() {
           {testimonials.map((testimonial, index) => (
             <div key={index} className="bg-gray-900 p-8 rounded-lg shadow-lg flex flex-col">
               <div className="flex-grow">
-                <Icon name="quote" className="h-8 w-8 text-cyan-500 mb-4" />
+                <Icon name="Quote" className="h-8 w-8 text-cyan-500 mb-4" />
                 <p className="text-gray-400 italic mb-6">"{testimonial.quote}"</p>
               </div>
               <div className="flex items-center mt-4">
