@@ -3,105 +3,122 @@ import { services } from '../data/siteData';
 import SectionTitle from './SectionTitle';
 import Icon from './Icon';
 
-function Services() {
-  const [vehicleType, setVehicleType] = useState('cars'); // 'cars' or 'trucks'
-  const [planType, setPlanType] = useState('exterior'); // 'exterior', 'interior', or 'ultimate'
+import CarPriceImage from '../assets/car-price.jpg';
+import TruckPriceImage from '../assets/truck-price.jpg';
 
-  // Get the currently selected plan based on state
+function Services() {
+  const [vehicleType, setVehicleType] = useState('cars');
+  const [planType, setPlanType] = useState('exterior');
+
   const selectedPlan = services[vehicleType][planType];
 
-  // Styles for toggle buttons
-  const vehicleButtonStyles = "px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 focus:outline-none flex-1";
-  const planButtonStyles = "py-2 px-5 rounded-lg font-semibold transition duration-300 focus:outline-none";
-  const activeButtonStyles = "bg-cyan-500 text-white shadow-md";
-  const inactiveButtonStyles = "bg-gray-700 text-gray-300 hover:bg-gray-600";
+  // Styles for Vehicle Type Buttons (Cars, Trucks) - Larger, prominent
+  const vehicleButtonBaseStyles = "px-10 py-3 rounded-full font-bold text-lg transition-colors duration-300 focus:outline-none flex items-center justify-center space-x-2";
+  const vehicleActiveStyles = "bg-primary-500 text-white shadow-lg";
+  const vehicleInactiveStyles = "bg-gray-700 text-gray-300 hover:bg-gray-600";
+
+  // Styles for Plan Type Buttons (Exterior, Interior, Ultimate) - Smaller
+  const planButtonBaseStyles = "py-2 px-5 rounded-lg font-semibold transition";
+  const planActiveStyles = "bg-primary-500 text-white";
+  const planInactiveStyles = "bg-gray-700 text-gray-300 hover:bg-gray-600";
+
+  const currentImage = vehicleType === 'cars' ? CarPriceImage : TruckPriceImage;
+  const currentVehicleTitle = vehicleType === 'cars' ? 'Cars Detail Prices' : 'Trucks Detail Prices';
+
 
   return (
-    <section id="services" className="py-20 md:py-28 bg-gray-800"> {/* Added padding */}
+    <section id="services" className="py-20 bg-gray-800">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* --- Section Title --- */}
         <SectionTitle
-          title="Washing Price"
+          title="WASHING PRICE"
+          titleClassName="text-primary-500 uppercase text-2xl md:text-3xl font-semibold tracking-wider"
           subtitle="Choose Your Plan"
+          subtitleClassName="text-white text-4xl md:text-5xl font-bold mt-2"
         />
 
-        {/* Vehicle Type Toggle */}
-        <div className="flex justify-center mb-8 bg-gray-900 rounded-full p-1 max-w-xs mx-auto shadow-inner">
-          <button
-            onClick={() => setVehicleType('cars')}
-            className={`${vehicleButtonStyles} ${vehicleType === 'cars' ? activeButtonStyles : inactiveButtonStyles}`}
-            aria-pressed={vehicleType === 'cars'}
-          >
-            Cars
-          </button>
-          <button
-            onClick={() => setVehicleType('trucks')}
-            className={`${vehicleButtonStyles} ${vehicleType === 'trucks' ? activeButtonStyles : inactiveButtonStyles}`}
-            aria-pressed={vehicleType === 'trucks'}
-          >
-            Trucks & SUVs
-          </button>
-        </div>
+        {/* --- Vehicle Type Buttons (Moved outside grid, below title) --- */}
+        <div className="flex flex-wrap justify-center gap-4 mt-12 mb-12">
+            <button
+                onClick={() => setVehicleType('cars')}
+                className={`${vehicleButtonBaseStyles} ${vehicleType === 'cars' ? vehicleActiveStyles : vehicleInactiveStyles}`}
+            >
+                <Icon name="Car" className="h-6 w-6" />
+                Cars
+            </button>
+            <button
+                onClick={() => setVehicleType('trucks')}
+                className={`${vehicleButtonBaseStyles} ${vehicleType === 'trucks' ? vehicleActiveStyles : vehicleInactiveStyles}`}
+            >
+                 <Icon name="Truck" className="h-6 w-6" />
+                Trucks
+            </button>
+         </div>
 
-        {/* Plan Type Toggle */}
-        <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-12">
-           <button
-             onClick={() => setPlanType('exterior')}
-             className={`${planButtonStyles} ${planType === 'exterior' ? activeButtonStyles : inactiveButtonStyles}`}
-             aria-pressed={planType === 'exterior'}
-           >
-             Exterior
-           </button>
-           <button
-             onClick={() => setPlanType('interior')}
-             className={`${planButtonStyles} ${planType === 'interior' ? activeButtonStyles : inactiveButtonStyles}`}
-             aria-pressed={planType === 'interior'}
-           >
-             Interior
-           </button>
-           <button
-             onClick={() => setPlanType('ultimate')}
-             className={`${planButtonStyles} ${planType === 'ultimate' ? activeButtonStyles : inactiveButtonStyles}`}
-             aria-pressed={planType === 'ultimate'}
-           >
-             Ultimate (Both)
-           </button>
-        </div>
+        {/* --- Main Grid Layout --- */}
+        {/* Adjusted grid columns: md:grid-cols-3 instead of 2 */}
+        {/* The first column (image) takes 1 span, the second (details) takes 2 spans */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-        {/* Pricing Card - Centered */}
-        <div className="max-w-md mx-auto bg-gray-900 rounded-2xl shadow-2xl overflow-hidden transform transition-transform duration-300 hover:scale-[1.02]">
-            <div className="p-8">
-                {/* Plan Name */}
-                <h3 className="text-2xl font-bold text-cyan-400 mb-2 text-center sm:text-left">
-                  {selectedPlan.name}
-                </h3>
-                 {/* Price */}
-                <p className="text-5xl font-extrabold text-white mb-6 text-center sm:text-left">
-                    ${selectedPlan.price}
-                    <span className="text-lg font-medium text-gray-400 align-baseline"> /one-time</span>
-                </p>
+          {/* --- Left Column: Vertical Image (Takes 1 of 3 columns on md+) --- */}
+          <div className="text-center md:text-left md:col-span-1 pb-12">
+             <img
+              src={currentImage}
+              alt={`${currentVehicleTitle} example`}
+              // Removed max-w-xs, letting column width control it
+              className="rounded-lg shadow-xl mb-8 w-full h-auto object-cover max-h-[70vh] aspect-[9/12] mx-auto md:mx-0"
+              onError={(e) => { e.target.onerror = null; e.target.src=`https://placehold.co/400x600/1F2937/FFFFFF?text=${vehicleType}`; }}
+            />
+          </div>
 
-                {/* Features List */}
-                <ul className="space-y-4 mb-8">
-                    {selectedPlan.features.map((feature, index) => (
-                        <li key={index} className="flex items-center text-gray-300">
-                           {/* Check icon */}
-                           <Icon name="CheckCircle" className="flex-shrink-0 h-6 w-6 text-cyan-400 mr-3" />
-                           <span>{feature}</span>
-                        </li>
-                    ))}
-                </ul>
+          {/* --- Right Column: Title -> Plan Select -> Price Card (Takes 2 of 3 columns on md+) --- */}
+          <div className="md:col-span-2">
+             {/* --- Dynamic Vehicle Type Title --- */}
+             <h3 className="text-2xl font-bold text-white mb-6">
+                {currentVehicleTitle}
+             </h3>
 
-                {/* Booking Button */}
-                <a href="#contact" // Link this appropriately later
-                   className="w-full text-center block bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-300"
-                >
-                    Book This Plan
-                </a>
+            {/* Plan Type Toggle */}
+            <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-8">
+              <button onClick={() => setPlanType('exterior')} className={`${planButtonBaseStyles} ${planType === 'exterior' ? planActiveStyles : planInactiveStyles}`}>Exterior</button>
+              <button onClick={() => setPlanType('interior')} className={`${planButtonBaseStyles} ${planType === 'interior' ? planActiveStyles : planInactiveStyles}`}>Interior</button>
+              <button onClick={() => setPlanType('ultimate')} className={`${planButtonBaseStyles} ${planType === 'ultimate' ? planActiveStyles : planInactiveStyles}`}>Ultimate (Both)</button>
             </div>
-        </div>
-      </div>
+
+            {/* Pricing Card */}
+            {selectedPlan ? (
+                <div className="bg-gray-900 rounded-2xl shadow-2xl overflow-hidden transform transition-transform duration-300 hover:scale-105">
+                    <div className="p-8">
+                        <h3 className="text-2xl font-bold text-primary-400 mb-2">{selectedPlan.name}</h3>
+                        <p className="text-5xl font-extrabold text-white mb-6">
+                            {selectedPlan.price}
+                            <span className="text-lg font-medium text-gray-400"> /one-time</span>
+                        </p>
+
+                        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 mb-8">
+                            {selectedPlan.features.map((feature, index) => (
+                                <li key={index} className="flex items-start text-gray-300">
+                                   <Icon name="CheckCircle" className="h-6 w-6 text-primary-400 mr-3 flex-shrink-0 mt-1" />
+                                   <span>{feature}</span>
+                                </li>
+                            ))}
+                        </ul>
+
+                        <a href="#contact" className="w-full text-center block bg-primary-500 hover:bg-primary-600 text-white font-bold py-3 px-6 rounded-lg transition-colors">
+                            Book This Plan
+                        </a>
+                    </div>
+                </div>
+            ) : (
+                <p className="text-white text-center text-lg mt-12">Select a plan to see details.</p>
+            )}
+          </div> {/* End Right Column */}
+
+        </div> {/* End Grid */}
+      </div> {/* End Container */}
     </section>
   );
 }
 
 export default Services;
+

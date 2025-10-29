@@ -11,6 +11,24 @@ export const heroData = {
   ctaButton: "Choose a Plan" // Button now scrolls to services
 };
 
+export const coreFeatures = [
+  {
+    icon: 'SmartphoneWash', // We'll need to create this icon
+    title: 'Contactless Washing',
+    description: 'Order our services online right here!',
+  },
+  {
+    icon: 'SprayBottle', // We'll need to create this icon
+    title: 'Safety Materials',
+    description: 'We use chemicals that are safe for your vehicle and for the environment.',
+  },
+  {
+    icon: 'ShowerHead', // We'll need to create this icon
+    title: 'Modern Equipment',
+    description: 'We use high quality equipment to ensure a great clean.',
+  },
+];
+
 // Pricing data - kept the same structure for now
 export const services = {
   cars: {
@@ -85,4 +103,4 @@ export const services = {
   },
 };
 
-// Add other data if needed as we build more sections later
+

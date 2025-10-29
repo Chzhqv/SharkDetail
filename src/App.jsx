@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';     // This is our Home section now
 import Services from './components/Services'; // This is our Washing Price section
+import Features from './components/Features';
 
 // Import other components if/when you add them back
 
@@ -12,6 +13,7 @@ function App() {
       <Header />
       <main>
         <Hero />      {/* Home Section */}
+        <Features />  {/* 3 Features */}
         <Services />  {/* Washing Price Section */}
         {/* Add other sections back here later */}
       </main>
